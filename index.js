@@ -1,4 +1,8 @@
 function listenForTouches() {
+  if (!'ontouchstart' in window) {
+    return $('a').live('click', function(e) { catchModals(e) })
+  }
+
   turnOffClick(['a', 'input'])
   
   $('a').live('tap', function(e) { catchModals(e) })
@@ -51,7 +55,7 @@ function redirect(uri) {
   window.location.href = uri
 }
 
-exports = {
+module.exports = {
   listenForTouches: listenForTouches,
   turnOffClick: turnOffClick,
   catchModals: catchModals,
