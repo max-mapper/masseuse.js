@@ -1,13 +1,14 @@
-function listenForTouches() {
-  if (!'ontouchstart' in window) {
-    return $('a').live('click', function(e) { catchModals(e) })
-  }
-
-  turnOffClick(['a', 'input'])
+function listenForTouches(scope) {
+  if (!scope) scope = ""
+  else scope = scope + " "
   
-  $('a').live('tap', function(e) { catchModals(e) })
+  turnOffClick([scope + 'a', scope + 'input'])
   
-  $('input').live('tap', function(e) {
+  $(scope + 'a').live('tap', function(e) {
+    catchModals(e)
+  })
+  
+  $(scope + 'input').live('tap', function(e) {
     e.preventDefault()
     var el = $(e.target)
     var type = e.target.type
@@ -44,10 +45,11 @@ function catchModals( event ) {
     route = route.substr(0, route.lastIndexOf('!'))
     var id = route.split('/')[1] // The ID (if one exists) will be what comes after the slash
     if (id) route = route.split('/')[0] // If there is an ID, then we have to trim it off the route
-    app.emitter.emit('modal', route)
+    return route
     if (typeof event === 'object') event.preventDefault()
   } else {
     redirect(route)
+    return false
   }
 }
 
