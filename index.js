@@ -1,11 +1,12 @@
-function listenForTouches(scope) {
+function listenForTouches(modalCallback, scope) {
   if (!scope) scope = ""
   else scope = scope + " "
   
   turnOffClick([scope + 'a', scope + 'input'])
   
   $(scope + 'a').live('tap', function(e) {
-    catchModals(e)
+    var modal = catchModals(e)
+    if (modal && modalCallback) modalCallback(modal)
   })
   
   $(scope + 'input').live('tap', function(e) {
@@ -38,7 +39,7 @@ function catchModals( event ) {
   var route = $(event.currentTarget).attr('href')
   if (!route) return false
   // Basic rules:
-  // * If the href ends with a bang (!) we're going to emit an event
+  // * If the href ends with a bang (!) we're going to return the route name
   // * Otherwise, we're going to change the page href
   if ( route && route.indexOf( '!' ) === ( route.length - 1 ) ) {
     route = route.replace('#/', '') // Trim off the #/ from the beginning of the route if it exists
