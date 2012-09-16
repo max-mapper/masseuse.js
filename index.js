@@ -18,6 +18,8 @@ function listenForTouches(modalCallback, scope) {
       // hack around webkit bug
       var toggler = el.parent().find('.toggler')
       redraw(toggler)
+    } else if (e.target.type === "submit" || e.target.type === "button") {
+      el.parents('form').first().submit()
     } else {
       if (el.hasClass('disabled')) return false
       var type = e.target.type
@@ -46,8 +48,10 @@ function turnOffClick(elems) {
 } 
 
 function catchModals( event ) {
-  var route = $(event.currentTarget).attr('href')
-  if (!route) return false
+  var currentTarget = $(event.currentTarget)
+  var route = currentTarget.attr('href')
+  if (!route) return
+  if (currentTarget.attr('target') === "_blank") return
   // Basic rules:
   // * If the href ends with a bang (!) we're going to return the route name
   // * Otherwise, we're going to change the page href

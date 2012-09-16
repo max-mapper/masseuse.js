@@ -2,5 +2,8 @@
   "author": "Max Ogden",
   "name": "masseuse",
   "description": "turn bad touches into good touches",
-  "version": "0.0.2"
+  "version": "0.0.3",
+  "engines": {
+    "browser": true
+  }
 }
