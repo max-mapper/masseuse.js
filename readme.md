@@ -1,1 +1,5 @@
-kinda like googles fastbutton but better. work in progress
+this module is deprecated. you should use these modules instead:
+
+https://github.com/ftlabs/fastclick
+
+https://github.com/maxogden/href-router
